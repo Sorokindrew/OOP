@@ -59,8 +59,8 @@ class TestSuite(unittest.TestCase):
         self.assertTrue(len(response))
 
     @cases([
-        # {},
-        # {"phone": "79175002040"},
+        {},
+        {"phone": "79175002040"},
         {"phone": "89175002040", "email": "stupnikov@otus.ru"},
         {"phone": "79175002040", "email": "stupnikovotus.ru"},
         {"phone": "79175002040", "email": "stupnikov@otus.ru", "gender": -1},
@@ -70,16 +70,14 @@ class TestSuite(unittest.TestCase):
         {"phone": "79175002040", "email": "stupnikov@otus.ru", "gender": 1, "birthday": "01.01.2000", "first_name": 1},
         {"phone": "79175002040", "email": "stupnikov@otus.ru", "gender": 1, "birthday": "01.01.2000",
          "first_name": "s", "last_name": 2},
-        # {"phone": "79175002040", "birthday": "01.01.2000", "first_name": "s"},
+        {"phone": "79175002040", "birthday": "01.01.2000", "first_name": "s"},
         {"email": "stupnikov@otus.ru", "gender": 1, "last_name": 2},
     ])
     def test_invalid_score_request(self, arguments):
         request = {"account": "horns&hoofs", "login": "h&f", "method": "online_score", "arguments": arguments}
         self.set_valid_auth(request)
-        print(json.dumps(request))
         response, code = self.get_response(request)
         self.assertEqual(api.INVALID_REQUEST, code, arguments)
-        print(response, arguments)
         self.assertTrue(len(response))
 
     @cases([

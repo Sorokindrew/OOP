@@ -355,6 +355,12 @@ def method_handler(request, ctx, store):
             )
         except Exception as e:
             return str(e), INVALID_REQUEST
+        if not ((args_.get("first_name") and args_.get("last_name")) or
+                (args_.get("birthday") and args_.get("gender") is not None) or
+                 (args_.get("email") and args_.get("phone"))
+                ):
+            return ("pair of first_name and last_name or birthday and gender or"
+                    "email and phone should present", INVALID_REQUEST)
         response = {
             "score": get_score(
                 store=store,
